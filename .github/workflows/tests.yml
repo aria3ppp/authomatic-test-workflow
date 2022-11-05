@@ -53,8 +53,8 @@ jobs:
         export POSTGRES_DB=${{ env.pg_db }}
         export ELASTICSEARCH_URL=http://localhost:9200
 
-    - name: Build
-      run: go build -v ./...
+#     - name: Build
+#       run: go build -v ./...
 
     - name: Test
       run: make test-all
