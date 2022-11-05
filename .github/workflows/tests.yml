@@ -47,11 +47,13 @@ jobs:
         
     - name: Set envs
       run: |
-        export POSTGRES_USER=${{ env.pg_user }}
-        export POSTGRES_PASSWORD=${{ env.pg_pass }}
-        export POSTGRES_PORT=${{ env.pg_port }}
-        export POSTGRES_DB=${{ env.pg_db }}
-        export ELASTICSEARCH_URL=http://localhost:9200
+        cat << EOF > .env
+        POSTGRES_USER=${{ env.pg_user }}
+        POSTGRES_PASSWORD=${{ env.pg_pass }}
+        POSTGRES_PORT=${{ env.pg_port }}
+        POSTGRES_DB=${{ env.pg_db }}
+        ELASTICSEARCH_URL=http://localhost:9200
+        EOF
         
     - name: Check envs
       run: |
