@@ -2,12 +2,18 @@ name: Tests
 
 on: [push, pull_request]
 
+env:
+  pg_port: 5432
+  pg_user: user
+  pg_pass: pass
+  pg_db: db
 jobs:
 
   build:
     runs-on: ubuntu-latest
     
     services:
+    
       elasticsearch:
         image: elasticsearch:8.4.0
         env:
@@ -17,7 +23,18 @@ jobs:
         ports:
           - 9200:9200
         options: --health-cmd "curl -s -I http://localhost:9200 | grep -q 'HTTP/1.1 200 OK'" --health-interval 10s --health-timeout 5s --health-retries 5
-    
+      
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: ${{ env.pg_user }}
+          POSTGRES_PASSWORD: ${{ env.pg_pass }}
+          POSTGRES_PORT: ${{ env.pg_port }}
+          POSTGRES_DB: ${{ env.pg_db }}
+        ports:
+          - ${{ env.pg_port }}/tcp:${{ env.pg_port }}
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     
     steps:
     - uses: actions/checkout@v3
@@ -26,14 +43,17 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
+        
+    - name: Set envs
+      run: |
+        export POSTGRES_USER=${{ env.pg_user }}
+        export POSTGRES_PASSWORD=${{ env.pg_pass }}
+        export POSTGRES_PORT=${{ env.pg_port }}
+        export POSTGRES_DB=${{ env.pg_db }}
+        export ELASTICSEARCH_URL=http://localhost:9200
 
     - name: Build
       run: go build -v ./...
-      
-    - name: Set up postgres
-      uses: harmon758/postgresql-action@v1
-      with:
-        postgresql version: '14'
 
     - name: Test
       run: make test-all
