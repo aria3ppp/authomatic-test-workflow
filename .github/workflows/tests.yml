@@ -53,8 +53,16 @@ jobs:
         export POSTGRES_DB=${{ env.pg_db }}
         export ELASTICSEARCH_URL=http://localhost:9200
         
-    - name: provide .env
-      run: cp .env.example .env
+    - name: Check envs
+      run: |
+        echo $POSTGRES_USER
+        echo $POSTGRES_PASSWORD
+        echo $POSTGRES_PORT
+        echo $POSTGRES_DB
+        echo $ELASTICSEARCH_URL
+        
+#     - name: provide .env
+#       run: cp .env.example .env
 
 #     - name: Build
 #       run: go build -v ./...
