@@ -28,10 +28,10 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: ${{ env.pg_user }}
-          POSTGRES_PASSWORD: ${{ env.pg_pass }}
-          POSTGRES_PORT: ${{ env.pg_port }}
-          POSTGRES_DB: ${{ env.pg_db }}
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: pass
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: db
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -48,10 +48,10 @@ jobs:
     - name: Set envs
       run: |
         cat << EOF > .env
-        POSTGRES_USER=${{ env.pg_user }}
-        POSTGRES_PASSWORD=${{ env.pg_pass }}
-        POSTGRES_PORT=${{ env.pg_port }}
-        POSTGRES_DB=${{ env.pg_db }}
+        POSTGRES_USER=user
+        POSTGRES_PASSWORD=pass
+        POSTGRES_PORT=5432
+        POSTGRES_DB=db
         ELASTICSEARCH_URL=http://localhost:9200
         EOF
         
