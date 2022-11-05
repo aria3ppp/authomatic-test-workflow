@@ -11,9 +11,9 @@ jobs:
       postgres:
         image: elasticsearch:8.4.0
         env:
-          discovery.type=single-node
-          xpack.security.enabled=false
-          bootstrap.memory_lock=true
+          discovery.type: single-node
+          xpack.security.enabled: false
+          bootstrap.memory_lock: true
         ports:
           - 9200:9200
         options: --health-cmd curl -s -I http://localhost:9200 | grep -q 'HTTP/1.1 200 OK' --health-interval 10s --health-timeout 5s --health-retries 5
