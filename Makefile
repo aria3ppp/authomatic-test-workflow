@@ -33,6 +33,13 @@ elk-start: ## start elk
 .PHONY: elk-stop
 elk-stop: ## stop elk
 	docker stop elk
+	
+.PHONY: set-sqlboiler
+set-sqlboiler: ## set sqlboiler database values
+	sed -r -i 's/[[:space:]]*dbname[[:space:]]*=[[:space:]]*(.+)/dbname = "$(POSTGRES_DB)"/' internal/sqlboiler.toml
+	sed -r -i 's/[[:space:]]*port[[:space:]]*=[[:space:]]*(.+)/port = $(POSTGRES_PORT)/' internal/sqlboiler.toml
+	sed -r -i 's/[[:space:]]*user[[:space:]]*=[[:space:]]*(.+)/user = "$(POSTGRES_USER)"/' internal/sqlboiler.toml
+	sed -r -i 's/[[:space:]]*pass[[:space:]]*=[[:space:]]*(.+)/pass = "$(POSTGRES_PASSWORD)"/' internal/sqlboiler.toml
 
 .PHONY: test-all
 test-all: ## run all tests
