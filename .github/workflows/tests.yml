@@ -55,11 +55,11 @@ jobs:
         
     - name: Check envs
       run: |
-        if [ -z "$POSTGRES_USER" ]; then exit 1; fi
-        if [ -z "$POSTGRES_PASSWORD" ]; then exit 2; fi
-        if [ -z "$POSTGRES_PORT" ]; then exit 3; fi
-        if [ -z "$POSTGRES_DB" ]; then exit 4; fi
-        if [ -z "$ELASTICSEARCH_URL" ]; then exit 5; fi
+        if [ "$POSTGRES_USER" != "${{env.pg_user}}" ]; then exit 1; fi
+        if [ "$POSTGRES_PASSWORD" != "${{env.pg_pass}}" ]; then exit 2; fi
+        if [ "$POSTGRES_PORT" != "${{env.pg_port}}" ]; then exit 3; fi
+        if [ "$POSTGRES_DB" != "${{env.pg_db}}" ]; then exit 4; fi
+        if [ "$ELASTICSEARCH_URL" != "http://localhost:9200" ]; then exit 5; fi
         
 #     - name: provide .env
 #       run: cp .env.example .env
