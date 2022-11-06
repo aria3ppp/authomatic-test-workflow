@@ -44,14 +44,11 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.19
-        
-#     - name: Set envs
-#       run: |
-#         export POSTGRES_USER=${{env.pg_user}}
-#         export POSTGRES_PASSWORD=${{env.pg_pass}}
-#         export POSTGRES_PORT=${{env.pg_port}}
-#         export POSTGRES_DB=${{env.pg_db}}
-#         export ELASTICSEARCH_URL=http://localhost:9200
+    - name: fetch packages
+      run: |
+        go mod download
+        go mod verify
+    
     - name: Set envs
       run: |
         cat << EOF > .env
@@ -61,14 +58,6 @@ jobs:
         POSTGRES_DB="${{env.pg_db}}"
         ELASTICSEARCH_URL="http://localhost:9200"
         EOF
-        
-#     - name: Check envs
-#       run: |
-#         if [ "$POSTGRES_USER" != "${{env.pg_user}}" ]; then exit 1; fi
-#         if [ "$POSTGRES_PASSWORD" != "${{env.pg_pass}}" ]; then exit 2; fi
-#         if [ "$POSTGRES_PORT" != "${{env.pg_port}}" ]; then exit 3; fi
-#         if [ "$POSTGRES_DB" != "${{env.pg_db}}" ]; then exit 4; fi
-#         if [ "$ELASTICSEARCH_URL" != "http://localhost:9200" ]; then exit 5; fi
         
 #     - name: provide .env
 #       run: cp .env.example .env
