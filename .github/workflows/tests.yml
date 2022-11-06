@@ -57,11 +57,12 @@ jobs:
         
     - name: Check envs
       run: |
-        if [ -z $POSTGRES_USER ]; then exit 1; fi
-        if [ -z $POSTGRES_PASSWORD ]; then exit 1; fi
-        if [ -z $POSTGRES_PORT ]; then exit 1; fi
-        if [ -z $POSTGRES_DB ]; then exit 1; fi
-        if [ -z $ELASTICSEARCH_URL ]; then exit 1; fi
+        export POSTGRES_USER=xxxxx
+        if [ -z "$POSTGRES_USER" ]; then exit 1; fi
+        if [ -z "$POSTGRES_PASSWORD" ]; then exit 2; fi
+        if [ -z "$POSTGRES_PORT" ]; then exit 3; fi
+        if [ -z "$POSTGRES_DB" ]; then exit 4; fi
+        if [ -z "$ELASTICSEARCH_URL" ]; then exit 5; fi
         
 #     - name: provide .env
 #       run: cp .env.example .env
