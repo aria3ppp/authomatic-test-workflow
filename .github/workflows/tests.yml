@@ -53,6 +53,7 @@ jobs:
 #         export POSTGRES_DB=${{env.pg_db}}
 #         export ELASTICSEARCH_URL=http://localhost:9200
     - name: Set envs
+      run: date
       env:
         POSTGRES_USER: ${{env.pg_user}}
         POSTGRES_PASSWORD: ${{env.pg_pass}}
