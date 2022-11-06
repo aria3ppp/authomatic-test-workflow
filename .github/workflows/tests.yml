@@ -47,17 +47,14 @@ jobs:
         
     - name: Set envs
       run: |
-        #cat << EOF > .env
         export POSTGRES_USER=${{env.pg_user}}
         export POSTGRES_PASSWORD=${{env.pg_pass}}
         export POSTGRES_PORT=${{env.pg_port}}
         export POSTGRES_DB=${{env.pg_db}}
         export ELASTICSEARCH_URL=http://localhost:9200
-        #EOF
         
     - name: Check envs
       run: |
-        export POSTGRES_USER=xxxxx
         if [ -z "$POSTGRES_USER" ]; then exit 1; fi
         if [ -z "$POSTGRES_PASSWORD" ]; then exit 2; fi
         if [ -z "$POSTGRES_PORT" ]; then exit 3; fi
