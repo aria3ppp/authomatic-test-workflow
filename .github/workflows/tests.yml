@@ -4,8 +4,8 @@ on: [push, pull_request]
 
 env:
   pg_port: 5432
-  pg_user: user
-  pg_pass: pass
+  pg_user: username
+  pg_pass: password
   pg_db: db
 
 jobs:
@@ -28,8 +28,8 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: pass
+          POSTGRES_USER: username
+          POSTGRES_PASSWORD: password
           POSTGRES_PORT: 5432
           POSTGRES_DB: db
         ports:
@@ -48,8 +48,8 @@ jobs:
     - name: Set envs
       run: |
         cat << EOF > .env
-        POSTGRES_USER=user
-        POSTGRES_PASSWORD=pass
+        POSTGRES_USER=username
+        POSTGRES_PASSWORD=password
         POSTGRES_PORT=5432
         POSTGRES_DB=db
         ELASTICSEARCH_URL=http://localhost:9200
