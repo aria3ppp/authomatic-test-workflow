@@ -60,11 +60,11 @@ jobs:
         ELASTICSEARCH_URL="http://localhost:9200"
         EOF
         
-#     - name: provide .env
-#       run: cp .env.example .env
-
 #     - name: Build
 #       run: go build -v ./...
+    
+    - name: Set sqlboiler conf file
+      run: make set-sqlboiler
 
     - name: Test
       run: make test-all
