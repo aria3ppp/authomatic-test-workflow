@@ -1,8 +1,8 @@
-#ENV_FILE ?= .env
-#POSTGRES_USER ?= $(shell sed -r -n 's/POSTGRES_USER="(.+)"/\1/p' $(ENV_FILE))
-#POSTGRES_PASSWORD ?= $(shell sed -r -n 's/POSTGRES_PASSWORD="(.+)"/\1/p' $(ENV_FILE))
-#POSTGRES_PORT ?= $(shell sed -r -n 's/POSTGRES_PORT="(.+)"/\1/p' $(ENV_FILE))
-#POSTGRES_DB ?= $(shell sed -r -n 's/POSTGRES_DB="(.+)"/\1/p' $(ENV_FILE))
+ENV_FILE ?= .env
+POSTGRES_USER ?= $(shell sed -r -n 's/POSTGRES_USER="(.+)"/\1/p' $(ENV_FILE))
+POSTGRES_PASSWORD ?= $(shell sed -r -n 's/POSTGRES_PASSWORD="(.+)"/\1/p' $(ENV_FILE))
+POSTGRES_PORT ?= $(shell sed -r -n 's/POSTGRES_PORT="(.+)"/\1/p' $(ENV_FILE))
+POSTGRES_DB ?= $(shell sed -r -n 's/POSTGRES_DB="(.+)"/\1/p' $(ENV_FILE))
 APP_DSN ?= "postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@localhost:$(POSTGRES_PORT)/$(POSTGRES_DB)?sslmode=disable"
 MIGRATE := docker run --rm -v $(shell pwd)/migrations:/migrations --user "$(shell id -u):$(shell id -g)" --network host migrate/migrate:4 -path=/migrations -database "$(APP_DSN)"
 
