@@ -53,11 +53,18 @@ jobs:
     - name: Set envs
       run: |
         cat << EOF > .env
+        # server envs
+        SERVER_LOGFILE="log.txt"
+        SERVER_PORT=8080
+        SERVER_SECRET_KEY="secret_key"
+        # postgresql database envs
         POSTGRES_USER="${{env.pg_user}}"
         POSTGRES_PASSWORD="${{env.pg_pass}}"
         POSTGRES_PORT="${{env.pg_port}}"
         POSTGRES_DB="${{env.pg_db}}"
+        # environment variable used by elasticsearch client
         ELASTICSEARCH_URL="http://localhost:9200"
+        ELASTICSEARCH_INDEX_POSTS="posts"
         EOF
         
 #     - name: Build
